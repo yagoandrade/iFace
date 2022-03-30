@@ -13,6 +13,16 @@ public class iFace {
         System.out.println("Nome de usuário: " + user[user_id].getUsername());
     }
 
+    public static void deleteUser(User[] user, String email, String password) {
+        for(int i = 0; i < 100; i++) {
+            if(user[i] != null) {
+                if((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
+                    System.out.println("Found");
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         User[] user = new User[100];
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
