@@ -43,6 +43,68 @@ public class iFace {
         }
     }
 
+    public static void editAttributes(User[] user, String email, String password) {
+        for(int i = 0; i < 100; i++) {
+            if(user[i] != null) {
+                if((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
+                    Scanner sc = new Scanner(System.in);  // Create a Scanner object
+
+                    while(true) {
+                        if(user[i].attributes.getName() == null) {
+                            System.out.println("\n1 - Cadastrar seu nome");
+                        } else{
+                            System.out.println("\n1 - Atualizar seu nome (atual: " + user[i].attributes.getSurname() + ")");
+                        }
+                        if(user[i].attributes.getSurname() == null) {
+                            System.out.println("\n1 - Cadastrar seu sobrenome");
+                        } else{
+                            System.out.println("\n1 - Atualizar seu sobrenome (atual: " + user[i].attributes.getSurname() + ")");
+                        }
+                        if(user[i].attributes.getCity() == null) {
+                            System.out.println("\n1 - Cadastrar uma cidade");
+                        } else{
+                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
+                        }
+                        if(user[i].attributes.getCity() == null) {
+                            System.out.println("\n1 - Cadastrar uma cidade");
+                        } else{
+                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
+                        }
+                        if(user[i].attributes.getCity() == null) {
+                            System.out.println("\n1 - Cadastrar uma cidade");
+                        } else{
+                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
+                        }
+                        if(user[i].attributes.getCity() == null) {
+                            System.out.println("\n1 - Cadastrar uma cidade");
+                        } else{
+                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
+                        }
+
+                        int input = sc.nextInt();
+                        if(input == 1) {
+
+                        } else if(input == 2) {
+
+                        } else if(input == 3) {
+
+                        } else if(input == 4) {
+                        }            
+                        else if (input == 5) {
+                            break;
+                        }
+                    }
+            
+                    sc.close();
+                    break;
+                }
+            }
+        }
+
+        user[0].attributes.setCity("Maceió");
+        System.out.println(user[0].attributes.getCity());
+    }
+
     public static void main(String[] args) {
         User[] user = new User[100];
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
@@ -79,7 +141,11 @@ public class iFace {
                 System.out.println("Opção selecionada: Listar usuários");
                 listUsers(user);  
             } else if(input == 4) {
-                editProfile(user);
+                System.out.println("Digite o e-mail do perfil: ");
+                String email = sc.next();
+                System.out.println("Senha: ");
+                String password = sc.next(); 
+                editAttributes(user, email, password);
             }            
             else if (input == 5) {
                 System.out.println("Obrigado por usar o iFace!");

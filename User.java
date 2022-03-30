@@ -2,7 +2,8 @@ public class User {
     String email;
     String password;
     String username;
-    
+    Attribute attributes = new Attribute();
+
     public String getEmail() {
         return email;
     }
