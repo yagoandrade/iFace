@@ -17,9 +17,29 @@ public class iFace {
         for(int i = 0; i < 100; i++) {
             if(user[i] != null) {
                 if((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
-                    System.out.println("Found");
+                    user[i] = null;
+                    break;
                 }
             }
+        }
+    }
+
+    public static void listUsers(User[] user) {
+        int null_users = 0;
+
+        for(int i = 0; i < 100; i++) {
+            if(user[i] != null) {
+                System.out.println("Id do usuário: " + i);
+                System.out.println("Nome do usuário: " + user[i].getUsername());
+                System.out.println("E-mail do usuário: " + user[i].getEmail());
+                System.out.println("Senha do usuário: " + user[i].getPassword());
+            } else {
+                null_users++;
+            }
+        }
+
+        if(null_users == 100) {
+            System.out.println("Não há usuários cadastrados.");
         }
     }
 
@@ -32,11 +52,12 @@ public class iFace {
         int user_id = 0;
 
         while(true) {
-            System.out.println("1 - Cadastrar usuário");
+            System.out.println("\n1 - Cadastrar usuário");
             System.out.println("2 - Deletar usuário");
-            System.out.println("3 - Terminar programa");
+            System.out.println("3 - Listar usuários");
+            System.out.println("4 - Editar atributos do perfil");
+            System.out.println("5 - Terminar programa");
             int input = sc.nextInt();
-            System.out.println(input);
             if(input == 1) {
                 System.out.println("Opção selecionada: Cadastrar usuário");
                 System.out.println("E-mail: ");
@@ -54,7 +75,14 @@ public class iFace {
                 System.out.println("Senha: ");
                 String password = sc.next(); 
                 deleteUser(user, email, password);
-            } else if (input == 3) {
+            } else if(input == 3) {
+                System.out.println("Opção selecionada: Listar usuários");
+                listUsers(user);  
+            } else if(input == 4) {
+                editProfile(user);
+            }            
+            else if (input == 5) {
+                System.out.println("Obrigado por usar o iFace!");
                 break;
             }
         }
