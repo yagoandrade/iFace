@@ -53,44 +53,33 @@ public class iFace {
                         if(user[i].attributes.getName() == null) {
                             System.out.println("\n1 - Cadastrar seu nome");
                         } else{
-                            System.out.println("\n1 - Atualizar seu nome (atual: " + user[i].attributes.getSurname() + ")");
+                            System.out.println("\n1 - Atualizar seu nome (atual: " + user[i].attributes.getName() + ")");
                         }
                         if(user[i].attributes.getSurname() == null) {
-                            System.out.println("\n1 - Cadastrar seu sobrenome");
+                            System.out.println("\n2 - Cadastrar seu sobrenome");
                         } else{
-                            System.out.println("\n1 - Atualizar seu sobrenome (atual: " + user[i].attributes.getSurname() + ")");
+                            System.out.println("\n2 - Atualizar seu sobrenome (atual: " + user[i].attributes.getSurname() + ")");
                         }
                         if(user[i].attributes.getCity() == null) {
-                            System.out.println("\n1 - Cadastrar uma cidade");
+                            System.out.println("\n3 - Cadastrar uma cidade");
                         } else{
-                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
+                            System.out.println("\n3 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
                         }
-                        if(user[i].attributes.getCity() == null) {
-                            System.out.println("\n1 - Cadastrar uma cidade");
-                        } else{
-                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
-                        }
-                        if(user[i].attributes.getCity() == null) {
-                            System.out.println("\n1 - Cadastrar uma cidade");
-                        } else{
-                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
-                        }
-                        if(user[i].attributes.getCity() == null) {
-                            System.out.println("\n1 - Cadastrar uma cidade");
-                        } else{
-                            System.out.println("\n1 - Atualizar a cidade (atual: " + user[i].attributes.getCity() + ")");
-                        }
+                        System.out.println("\n4 - Finalizar cadastro");
+
 
                         int input = sc.nextInt();
                         if(input == 1) {
-
+                            String input_text = sc.next();
+                            user[i].attributes.setName(input_text);
                         } else if(input == 2) {
-
+                            String input_text = sc.next();
+                            user[i].attributes.setSurname(input_text);
                         } else if(input == 3) {
-
-                        } else if(input == 4) {
-                        }            
-                        else if (input == 5) {
+                            String input_text = sc.next();
+                            user[i].attributes.setCity(input_text);
+                        }
+                        else if (input == 4) {
                             break;
                         }
                     }
