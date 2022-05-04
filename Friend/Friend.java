@@ -1,6 +1,8 @@
 package Friend;
 
-public class Friend {
+import User.User;
+
+public class Friend extends User {
     public int user_id;
     public String username;
     public String relationship;
