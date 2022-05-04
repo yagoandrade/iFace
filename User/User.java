@@ -3,7 +3,6 @@ package User;
 import Friend.Friend;
 import User.Attributes.Attribute;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User extends Attribute {
@@ -11,8 +10,7 @@ public class User extends Attribute {
     String email;
     String password;
     String username;
-    public ArrayList<String> messages = new ArrayList<String>();
-    Friend[] friends = new Friend[1000];
+    public Friend[] friends = new Friend[1000];
     public Attribute attributes = new Attribute();
 
     public void setId(int id) {

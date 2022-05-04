@@ -6,7 +6,7 @@ public class Community {
     String name;
     String topic;
     int capacity;
-    ArrayList<String> members = new ArrayList<String>();
+    public ArrayList<String> members = new ArrayList<String>();
 
     public void setName(String name) {
         this.name = name;

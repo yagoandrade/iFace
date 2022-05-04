@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import User.User;
-import User.Attributes.Attribute;
 import java.util.ArrayList;
 import Community.Community;
 
@@ -70,6 +69,9 @@ public class Main extends iFace {
                 String email = sc.next();
                 System.out.println("Enter your password: ");
                 String password = sc.next();
+                if (email.equals(current_user.getEmail()) && password.equals(current_user.getPassword())) {
+                    current_user = null;
+                }
                 deleteUser(users, email, password);
             } else if (input == 3) {
                 System.out.println("Selected: List users");

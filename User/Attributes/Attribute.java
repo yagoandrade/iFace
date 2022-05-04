@@ -1,9 +1,12 @@
 package User.Attributes;
 
+import java.util.ArrayList;
+
 public class Attribute {
     String name;
     String surname;
     String city;
+    public ArrayList<String> messages = new ArrayList<String>();
 
     public void setName(String name) {
         this.name = name;
