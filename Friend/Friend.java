@@ -7,18 +7,22 @@ public class Friend extends User {
     public String username;
     public String relationship;
 
-    public int getUser_id() {
+    @Override
+    public int getId() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    @Override
+    public void setId(int user_id) {
         this.user_id = user_id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
 
+    @Override
     public void setUsername(String username) {
         this.username = username;
     }

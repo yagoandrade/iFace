@@ -11,7 +11,6 @@ public class User extends Attribute {
     String password;
     String username;
     public Friend[] friends = new Friend[1000];
-    public Attribute attributes = new Attribute();
 
     public void setId(int id) {
         this.id = id;
@@ -60,7 +59,7 @@ public class User extends Attribute {
                             for (int k = 0; k < 1000; k++) {
                                 if (users[j].friends[k] == null) {
                                     users[j].friends[k] = new Friend();
-                                    users[j].friends[k].setUser_id(currentUser.getId());
+                                    users[j].friends[k].setId(currentUser.getId());
                                     users[j].friends[k].setUsername(currentUser.getUsername());
                                     users[j].friends[k].setRelationship("Pending");
                                     break;
@@ -68,7 +67,7 @@ public class User extends Attribute {
                             }
 
                             friends[i] = new Friend();
-                            friends[i].setUser_id(users[j].getId());
+                            friends[i].setId(users[j].getId());
                             friends[i].setUsername(users[j].getUsername());
                             friends[i].setRelationship("Outgoing");
                             break;
@@ -85,27 +84,27 @@ public class User extends Attribute {
             if (user[i] != null) {
                 if ((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
                     while (true) {
-                        if (user[i].attributes.getName() == null) {
+                        if (user[i].getName() == null) {
                             System.out.println("1 - Register a new first name");
                             System.out.println("You currently don't have a first name associated with your account.");
                         } else {
                             System.out.println("\n1 - Update your first name");
-                            System.out.println("Current first name: " + user[i].attributes.getName());
+                            System.out.println("Current first name: " + user[i].getName());
 
                         }
-                        if (user[i].attributes.getSurname() == null) {
+                        if (user[i].getSurname() == null) {
                             System.out.println("2 - Register a new last name");
                             System.out.println("You currently don't have a last name associated with your account.");
                         } else {
                             System.out.println("2 - Update your last name");
-                            System.out.println("Current last name: " + user[i].attributes.getSurname());
+                            System.out.println("Current last name: " + user[i].getSurname());
                         }
-                        if (user[i].attributes.getCity() == null) {
+                        if (user[i].getCity() == null) {
                             System.out.println("3 - Register a new city");
                             System.out.println("You currently don't have a city associated with your account.");
                         } else {
                             System.out.println("3 - Update your city");
-                            System.out.println("Current city: " + user[i].attributes.getCity());
+                            System.out.println("Current city: " + user[i].getCity());
                         }
                         System.out.println("4 - Close attribute settings");
 
@@ -113,15 +112,15 @@ public class User extends Attribute {
                         if (input == 1) {
                             System.out.println("Desired first name: ");
                             String input_text = sc.next();
-                            user[i].attributes.setName(input_text);
+                            user[i].setName(input_text);
                         } else if (input == 2) {
                             System.out.println("Desired last name: ");
                             String input_text = sc.next();
-                            user[i].attributes.setSurname(input_text);
+                            user[i].setSurname(input_text);
                         } else if (input == 3) {
                             System.out.println("Desired city: ");
                             String input_text = sc.next();
-                            user[i].attributes.setCity(input_text);
+                            user[i].setCity(input_text);
                         } else if (input == 4) {
                             System.out.println("Selected: Close attribute settings");
                             break;
@@ -172,7 +171,7 @@ public class User extends Attribute {
                 int invite_id = sc.nextInt();
                 for (int j = 0; j < 1000; j++) {
                     if (friends[j] != null) {
-                        if (friends[j].getUser_id() == invite_id) {
+                        if (friends[j].getId() == invite_id) {
                             System.out.println("Press 1 to accept");
                             System.out.println("Press 2 to deny");
                             int response = sc.nextInt();
