@@ -1,3 +1,5 @@
+package old;
+
 public class Friend {
     int user_id;
     String username;

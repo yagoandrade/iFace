@@ -1,14 +1,19 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+package User;
 
-public class User {
+import Friend.Friend;
+import User.Attributes.Attribute;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class User extends Attribute {
     int id;
     String email;
     String password;
     String username;
-    ArrayList<String> messages = new ArrayList<String>();
+    public ArrayList<String> messages = new ArrayList<String>();
     Friend[] friends = new Friend[1000];
-    Attribute attributes = new Attribute();
+    public Attribute attributes = new Attribute();
 
     public void setId(int id) {
         this.id = id;
@@ -72,6 +77,59 @@ public class User {
                         }
                     }
                     break;
+                }
+            }
+        }
+    }
+
+    public void editAttributes(User[] user, String email, String password, Scanner sc) {
+        for (int i = 0; i < 1000; i++) {
+            if (user[i] != null) {
+                if ((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
+                    while (true) {
+                        if (user[i].attributes.getName() == null) {
+                            System.out.println("1 - Register a new first name");
+                            System.out.println("You currently don't have a first name associated with your account.");
+                        } else {
+                            System.out.println("\n1 - Update your first name");
+                            System.out.println("Current first name: " + user[i].attributes.getName());
+
+                        }
+                        if (user[i].attributes.getSurname() == null) {
+                            System.out.println("2 - Register a new last name");
+                            System.out.println("You currently don't have a last name associated with your account.");
+                        } else {
+                            System.out.println("2 - Update your last name");
+                            System.out.println("Current last name: " + user[i].attributes.getSurname());
+                        }
+                        if (user[i].attributes.getCity() == null) {
+                            System.out.println("3 - Register a new city");
+                            System.out.println("You currently don't have a city associated with your account.");
+                        } else {
+                            System.out.println("3 - Update your city");
+                            System.out.println("Current city: " + user[i].attributes.getCity());
+                        }
+                        System.out.println("4 - Close attribute settings");
+
+                        int input = sc.nextInt();
+                        if (input == 1) {
+                            System.out.println("Desired first name: ");
+                            String input_text = sc.next();
+                            user[i].attributes.setName(input_text);
+                        } else if (input == 2) {
+                            System.out.println("Desired last name: ");
+                            String input_text = sc.next();
+                            user[i].attributes.setSurname(input_text);
+                        } else if (input == 3) {
+                            System.out.println("Desired city: ");
+                            String input_text = sc.next();
+                            user[i].attributes.setCity(input_text);
+                        } else if (input == 4) {
+                            System.out.println("Selected: Close attribute settings");
+                            break;
+                        }
+                    }
+                    return;
                 }
             }
         }

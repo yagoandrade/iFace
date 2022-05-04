@@ -1,3 +1,5 @@
+package User.Attributes;
+
 public class Attribute {
     String name;
     String surname;
@@ -26,4 +28,5 @@ public class Attribute {
     public String getCity() {
         return city;
     }
+
 }
