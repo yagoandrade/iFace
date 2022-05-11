@@ -33,15 +33,22 @@ abstract class iFace {
     }
 
     public static void listNews(User current_user) {
+        int messages_found = 0;
+
         for (int i = 0; i < Feed.size(); i++) {
 
             if (((Feed.get(i).privacy == true) && (isFriends(Feed.get(i).user, current_user)))
                     || (Feed.get(i).privacy == false)) {
+                        messages_found++;
                 System.out.println();
                 System.out.println('"' + Feed.get(i).content + '"');
                 System.out.println("Posted by: " + Feed.get(i).user);
                 System.out.println();
             }
+        }
+
+        if(messages_found < 1) {
+            System.out.println("No messages were found.");
         }
     }
 

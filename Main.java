@@ -218,20 +218,24 @@ public class Main extends iFace {
                 listNews(current_user);
             } else if (input.equals("14")) {
                 System.out.println("Selected: Add message to the feed");
-                System.out.println("Type a message to send to the feed: ");
-                String message = sc.next();
-                message += sc.nextLine();
-                System.out.println("Will this message only be visible to friends? 1 for YES | 0 for NO ");
-                String x = sc.next();
-                boolean privacy;
-                if (x.equals("1")) {
-                    privacy = true;
-                    addNews(current_user.getId(), current_user, message, privacy);
-                } else if (x.equals("0")) {
-                    privacy = false;
-                    addNews(current_user.getId(), current_user, message, privacy);
+                if(current_user == null) {
+                    System.out.println("You must log in before accessing this feature");
                 } else {
-                    System.out.println("Invalid option! Please try again.");
+                    System.out.println("Type a message to send to the feed: ");
+                    String message = sc.next();
+                    message += sc.nextLine();
+                    System.out.println("Will this message only be visible to friends? 1 for YES | 0 for NO ");
+                    String x = sc.next();
+                    boolean privacy;
+                    if (x.equals("1")) {
+                        privacy = true;
+                        addNews(current_user.getId(), current_user, message, privacy);
+                    } else if (x.equals("0")) {
+                        privacy = false;
+                        addNews(current_user.getId(), current_user, message, privacy);
+                    } else {
+                        System.out.println("Invalid option! Please try again.");
+                    }
                 }
 
             } else if (input.equals("15")) {
