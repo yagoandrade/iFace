@@ -1,6 +1,50 @@
+import java.util.ArrayList;
+
+import Feed.News;
 import User.User;
 
 public class iFace {
+    static ArrayList<News> Feed = new ArrayList<News>();
+
+    public static void addNews(int id, User current_user, String content, boolean privacy) {
+        News item = new News();
+        item.id = id;
+        item.user = current_user.getUsername();
+        item.content = content;
+        item.privacy = privacy;
+        Feed.add(item);
+    }
+
+    public static boolean isFriends(String user, User current_user) {
+        // Show friends of current user
+        if (current_user.getUsername().equals(user)) {
+            return true;
+        }
+
+        for (int i = 0; i < current_user.friends.length; i++) {
+            if (current_user.friends[i] != null) {
+                System.out.println(current_user.friends[i].getUsername());
+                if (current_user.friends[i].getUsername().equals(user)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void listNews(User current_user) {
+        for (int i = 0; i < Feed.size(); i++) {
+
+            if (((Feed.get(i).privacy == true) && (isFriends(Feed.get(i).user, current_user)))
+                    || (Feed.get(i).privacy == false)) {
+                System.out.println();
+                System.out.println('"' + Feed.get(i).content + '"');
+                System.out.println("Posted by: " + Feed.get(i).user);
+                System.out.println();
+            }
+        }
+    }
+
     public static User handleLogin(String username, String password, User[] users) {
         for (int i = 0; i < 1000; i++) {
             if (users[i] != null) {

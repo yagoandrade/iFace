@@ -31,11 +31,13 @@ public class Main extends iFace {
             System.out.println("10 - Create community");
             System.out.println("11 - Add member to community");
             System.out.println("12 - List members from a community");
-            System.out.println("13 - Exit");
+            System.out.println("13 - Open the news feed");
+            System.out.println("14 - Add message to the feed");
+            System.out.println("15 - Exit");
 
-            int input = sc.nextInt();
+            String input = sc.next();
 
-            if (input == 0) {
+            if (input.equals("0")) {
                 if (current_user == null) {
                     System.out.println("Selected: Login");
                     current_user = new User();
@@ -54,7 +56,7 @@ public class Main extends iFace {
                     current_user = null;
                     System.out.println("You have logged out succesfully.");
                 }
-            } else if (input == 1) {
+            } else if (input.equals("1")) {
                 System.out.println("Selected: Register user");
                 System.out.println("Email: ");
                 String email = sc.next();
@@ -63,7 +65,7 @@ public class Main extends iFace {
                 System.out.println("Username: ");
                 String username = sc.next();
                 createUser(users, email, password, username);
-            } else if (input == 2) {
+            } else if (input.equals("2")) {
                 System.out.println("Selected: Delete user");
                 System.out.println("Enter your email: ");
                 String email = sc.next();
@@ -73,17 +75,17 @@ public class Main extends iFace {
                     current_user = null;
                 }
                 deleteUser(users, email, password);
-            } else if (input == 3) {
+            } else if (input.equals("3")) {
                 System.out.println("Selected: List users");
                 listUsers(users);
-            } else if (input == 4) {
+            } else if (input.equals("4")) {
                 System.out.println("Selected: Edit profile attributes");
                 System.out.println("Enter your email: ");
                 String email = sc.next();
                 System.out.println("Enter your password: ");
                 String password = sc.next();
                 current_user.editAttributes(users, email, password, sc);
-            } else if (input == 5) {
+            } else if (input.equals("5")) {
                 System.out.println("Selected: Add friend");
                 if (current_user == null) {
                     System.out.println("You must login before adding friends!");
@@ -92,14 +94,14 @@ public class Main extends iFace {
                     String invite_friend = sc.next();
                     current_user.addFriend(users, current_user, invite_friend);
                 }
-            } else if (input == 6) {
+            } else if (input.equals("6")) {
                 System.out.println("Selected: See invites");
                 if (current_user == null) {
                     System.out.println("You must login before seeing your invites!");
                 } else {
                     current_user.seeInvites(sc, users);
                 }
-            } else if (input == 7) {
+            } else if (input.equals("7")) {
                 System.out.println("Selected: See my information");
                 if (current_user == null) {
                     System.out.println("You must login before seeing your information!");
@@ -127,7 +129,7 @@ public class Main extends iFace {
 
                     }
                 }
-            } else if (input == 8) {
+            } else if (input.equals("8")) {
                 System.out.println("Selected: Send message");
                 System.out.println("Send a message to user: ");
                 String username = sc.next();
@@ -144,7 +146,7 @@ public class Main extends iFace {
                         }
                     }
                 }
-            } else if (input == 9) {
+            } else if (input.equals("9")) {
                 System.out.println("Selected: See your messages");
                 if (current_user == null) {
                     System.out.println("You must login before seeing your messages!");
@@ -153,7 +155,7 @@ public class Main extends iFace {
                         System.out.println(current_user.messages.get(i));
                     }
                 }
-            } else if (input == 10) {
+            } else if (input.equals("10")) {
                 System.out.println("Selected: Create community");
                 Community community = new Community();
                 System.out.println("Name of the community: ");
@@ -167,7 +169,7 @@ public class Main extends iFace {
                 community.setCapacity(capacity);
                 communities.add(community);
                 System.out.println("Community created!");
-            } else if (input == 11) {
+            } else if (input.equals("11")) {
                 System.out.println("Add member to community");
                 System.out.println("Username of the user who is going to be added");
                 String username = sc.next();
@@ -188,7 +190,7 @@ public class Main extends iFace {
                 }
 
                 System.out.println("User was added!");
-            } else if (input == 12) {
+            } else if (input.equals("12")) {
                 System.out.println("Selected: List members from a community");
                 System.out.println("Select a community from the list: ");
                 for (int i = 0; i < communities.size(); i++) {
@@ -210,10 +212,33 @@ public class Main extends iFace {
                         }
                     }
                 }
-            } else if (input == 13) {
+            } else if (input.equals("13")) {
+                System.out.println("Selected: Open the news feed");
+
+                listNews(current_user);
+            } else if (input.equals("14")) {
+                System.out.println("Selected: Add message to the feed");
+                System.out.println("Type a message to send to the feed: ");
+                String message = sc.next();
+                message += sc.nextLine();
+                System.out.println("Will this message only be visible to friends? 1 for YES | 0 for NO ");
+                String x = sc.next();
+                boolean privacy;
+                if (x.equals("1")) {
+                    privacy = true;
+                    addNews(current_user.getId(), current_user, message, privacy);
+                } else if (x.equals("0")) {
+                    privacy = false;
+                    addNews(current_user.getId(), current_user, message, privacy);
+                } else {
+                    System.out.println("Invalid option! Please try again.");
+                }
+
+            } else if (input.equals("15")) {
                 System.out.println("Thank you for trying out iFace!");
                 break;
-
+            } else {
+                System.out.println("Invalid input! Please try again.");
             }
         }
 

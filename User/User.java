@@ -10,6 +10,7 @@ public class User extends Attribute {
     String email;
     String password;
     String username;
+    boolean private_feed;
     public Friend[] friends = new Friend[1000];
 
     public void setId(int id) {
@@ -42,6 +43,14 @@ public class User extends Attribute {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean getPrivateFeed() {
+        return private_feed;
+    }
+
+    public void setPrivateFeed(boolean value) {
+        this.private_feed = value;
     }
 
     public void addMessage(String message) {
