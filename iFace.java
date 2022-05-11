@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import Feed.News;
 import User.User;
 
-public class iFace {
+abstract class iFace {
     static ArrayList<News> Feed = new ArrayList<News>();
 
     public static void addNews(int id, User current_user, String content, boolean privacy) {
