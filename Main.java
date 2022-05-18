@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import User.User;
+import Util.EmailValidator;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import Community.Community;
 import Exceptions.EmptyInputException;
+import Exceptions.InvalidEmailException;
 import Exceptions.MaximumSizeException;
 
 public class Main extends iFace {
@@ -80,7 +82,10 @@ public class Main extends iFace {
                             throw new EmptyInputException("You must type something to the email.");
                         }
 
-                        
+                        if(EmailValidator.isValid(email) == false) {
+                            throw new InvalidEmailException("The email is invalid.");
+                        }
+
                         System.out.println("Password: ");
                         String password = sc.next();
                         if(password.length() > 45) {
@@ -103,6 +108,8 @@ public class Main extends iFace {
                     } catch (EmptyInputException e) {
                         System.out.println(e);
                     } catch (MaximumSizeException e) {
+                        System.out.println(e);
+                    } catch (InvalidEmailException e) {
                         System.out.println(e);
                     }
                 } else if (input == 2) {
@@ -328,20 +335,33 @@ public class Main extends iFace {
                     if(current_user == null) {
                         System.out.println("You must log in before accessing this feature");
                     } else {
-                        System.out.println("Type a message to send to the feed: ");
-                        String message = sc.next();
-                        message += sc.nextLine();
-                        System.out.println("Will this message only be visible to friends? 1 for YES | 0 for NO ");
-                        String x = sc.next();
-                        boolean privacy;
-                        if (x.equals("1")) {
-                            privacy = true;
-                            addNews(current_user.getId(), current_user, message, privacy);
-                        } else if (x.equals("0")) {
-                            privacy = false;
-                            addNews(current_user.getId(), current_user, message, privacy);
-                        } else {
-                            System.out.println("Invalid option! Please try again.");
+                        try {
+                            System.out.println("Type a message to send to the feed: ");
+                            String message = sc.next();
+                            message += sc.nextLine();
+
+                            if(message.equals("")) {
+                                throw new EmptyInputException("You must type something to the message.");
+                            }    
+
+                            System.out.println("Will this message only be visible to friends? 1 for YES | 0 for NO ");
+                            String s = sc.next();
+                            int option = Integer.parseInt(s);
+                            boolean privacy;
+                            if (option == 1) {
+                                privacy = true;
+                                addNews(current_user.getId(), current_user, message, privacy);
+                            } else if (option == 0) {
+                                privacy = false;
+                                addNews(current_user.getId(), current_user, message, privacy);
+                            } else {
+                                System.out.println("Please choose one of the options listed above.");
+                            }
+
+                        } catch(EmptyInputException e) {
+                            System.out.println(e);
+                        } catch(NumberFormatException e) {
+                            System.out.println("You must input a number.");
                         }
                     }
     
