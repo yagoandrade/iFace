@@ -3,6 +3,7 @@ package User;
 import Friend.Friend;
 import User.Attributes.Attribute;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class User extends Attribute {
@@ -89,55 +90,78 @@ public class User extends Attribute {
     }
 
     public void editAttributes(User[] user, String email, String password, Scanner sc) {
-        for (int i = 0; i < 1000; i++) {
-            if (user[i] != null) {
-                if ((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
-                    while (true) {
-                        if (user[i].getName() == null) {
-                            System.out.println("1 - Register a new first name");
-                            System.out.println("You currently don't have a first name associated with your account.");
-                        } else {
-                            System.out.println("\n1 - Update your first name");
-                            System.out.println("Current first name: " + user[i].getName());
-
+        try {
+            for (int i = 0; i < 1000; i++) {
+                if (user[i] != null) {
+                    if ((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
+                        while (true) {
+                            if (user[i].getName() == null) {
+                                System.out.println("1 - Register a new first name");
+                                System.out.println("You currently don't have a first name associated with your account.");
+                            } else {
+                                System.out.println("\n1 - Update your first name");
+                                System.out.println("Current first name: " + user[i].getName());
+    
+                            }
+                            if (user[i].getSurname() == null) {
+                                System.out.println("2 - Register a new last name");
+                                System.out.println("You currently don't have a last name associated with your account.");
+                            } else {
+                                System.out.println("2 - Update your last name");
+                                System.out.println("Current last name: " + user[i].getSurname());
+                            }
+                            if (user[i].getCity() == null) {
+                                System.out.println("3 - Register a new city");
+                                System.out.println("You currently don't have a city associated with your account.");
+                            } else {
+                                System.out.println("3 - Update your city");
+                                System.out.println("Current city: " + user[i].getCity());
+                            }
+                            if(user[i].getAge() == -1) {
+                                System.out.println("4 - Register a new age");
+                                System.out.println("You currently don't have an age associated with your account.");
+                            } else {
+                                System.out.println("4 - Update your age");
+                                System.out.println("Current age: " + user[i].getAge());
+                            }
+                            System.out.println("5 - Close attribute settings");
+    
+                            int input = sc.nextInt();
+                            if (input == 1) {
+                                System.out.println("Desired first name: ");
+                                String input_text = sc.next();
+                                user[i].setName(input_text);
+                            } else if (input == 2) {
+                                System.out.println("Desired last name: ");
+                                String input_text = sc.next();
+                                user[i].setSurname(input_text);
+                            } else if (input == 3) {
+                                System.out.println("Desired city: ");
+                                String input_text = sc.next();
+                                user[i].setCity(input_text);
+                            } else if (input == 4) {
+                                System.out.println("Your age: ");
+                                String input_text = sc.next();
+                                try {
+                                    int number = Integer.parseInt(input_text);
+                                    user[i].setAge(number);
+                                } catch (Exception e) {
+                                    System.out.println("You must input a number for your age!");
+                                }
+                            }   
+                            else if (input == 5) {
+                                System.out.println("Selected: Close attribute settings");
+                                break;
+                            }
                         }
-                        if (user[i].getSurname() == null) {
-                            System.out.println("2 - Register a new last name");
-                            System.out.println("You currently don't have a last name associated with your account.");
-                        } else {
-                            System.out.println("2 - Update your last name");
-                            System.out.println("Current last name: " + user[i].getSurname());
-                        }
-                        if (user[i].getCity() == null) {
-                            System.out.println("3 - Register a new city");
-                            System.out.println("You currently don't have a city associated with your account.");
-                        } else {
-                            System.out.println("3 - Update your city");
-                            System.out.println("Current city: " + user[i].getCity());
-                        }
-                        System.out.println("4 - Close attribute settings");
-
-                        int input = sc.nextInt();
-                        if (input == 1) {
-                            System.out.println("Desired first name: ");
-                            String input_text = sc.next();
-                            user[i].setName(input_text);
-                        } else if (input == 2) {
-                            System.out.println("Desired last name: ");
-                            String input_text = sc.next();
-                            user[i].setSurname(input_text);
-                        } else if (input == 3) {
-                            System.out.println("Desired city: ");
-                            String input_text = sc.next();
-                            user[i].setCity(input_text);
-                        } else if (input == 4) {
-                            System.out.println("Selected: Close attribute settings");
-                            break;
-                        }
+                        return;
                     }
-                    return;
                 }
             }
+        } catch (OutOfMemoryError e) {
+            System.out.println("There was an error when accessing the memory, please try again.");
+        } catch (Exception e) {
+            System.out.println("There was an error when editing the user, please try again.");
         }
     }
 
@@ -173,66 +197,71 @@ public class User extends Attribute {
             System.out.println("1 - Yes");
             System.out.println("2 - No");
 
-            int input = sc.nextInt();
-
-            if (input == 1) {
-                System.out.println("Please enter the id of the user invite you wish to respond to: ");
-                int invite_id = sc.nextInt();
-                for (int j = 0; j < 1000; j++) {
-                    if (friends[j] != null) {
-                        if (friends[j].getId() == invite_id) {
-                            System.out.println("Press 1 to accept");
-                            System.out.println("Press 2 to deny");
-                            int response = sc.nextInt();
-                            if (response == 1) {
-                                friends[j].setRelationship("Friends");
-                                for (int n = 0; n < 1000; n++) {
-                                    if (users[n] != null) {
-                                        if (users[n].getUsername().equals(friends[j].getUsername())) {
-                                            for (int m = 0; m < 1000; m++) {
-                                                if (users[n].friends[m] != null) {
-                                                    if (users[n].friends[m].getUsername().equals(this.getUsername())) {
-                                                        System.out.println(users[n].friends[m].getRelationship());
-                                                        if (users[n].friends[m].getRelationship() == "Outgoing") {
-                                                            users[n].friends[m].setRelationship("Friends");
+            try {
+                int input = sc.nextInt();
+    
+                if (input == 1) {
+                    System.out.println("Please enter the id of the user invite you wish to respond to: ");
+                    int invite_id = sc.nextInt();
+                    for (int j = 0; j < 1000; j++) {
+                        if (friends[j] != null) {
+                            if (friends[j].getId() == invite_id) {
+                                System.out.println("Press 1 to accept");
+                                System.out.println("Press 2 to deny");
+                                int response = sc.nextInt();
+                                if (response == 1) {
+                                    friends[j].setRelationship("Friends");
+                                    for (int n = 0; n < 1000; n++) {
+                                        if (users[n] != null) {
+                                            if (users[n].getUsername().equals(friends[j].getUsername())) {
+                                                for (int m = 0; m < 1000; m++) {
+                                                    if (users[n].friends[m] != null) {
+                                                        if (users[n].friends[m].getUsername().equals(this.getUsername())) {
+                                                            System.out.println(users[n].friends[m].getRelationship());
+                                                            if (users[n].friends[m].getRelationship() == "Outgoing") {
+                                                                users[n].friends[m].setRelationship("Friends");
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                                System.out.println("Accepted");
-                                break;
-                            } else if (response == 2) {
-                                for (int n = 0; n < 1000; n++) {
-                                    if (users[n] != null) {
-                                        if (users[n].getUsername().equals(friends[j].getUsername())) {
-                                            for (int m = 0; m < 1000; m++) {
-                                                if (users[n].friends[m] != null) {
-                                                    if (users[n].friends[m].getUsername().equals(this.getUsername())) {
-                                                        System.out.println(users[n].friends[m].getRelationship());
-                                                        if (users[n].friends[m].getRelationship() == "Outgoing") {
-                                                            users[n].friends[m] = null;
+                                    System.out.println("Accepted");
+                                    break;
+                                } else if (response == 2) {
+                                    for (int n = 0; n < 1000; n++) {
+                                        if (users[n] != null) {
+                                            if (users[n].getUsername().equals(friends[j].getUsername())) {
+                                                for (int m = 0; m < 1000; m++) {
+                                                    if (users[n].friends[m] != null) {
+                                                        if (users[n].friends[m].getUsername().equals(this.getUsername())) {
+                                                            System.out.println(users[n].friends[m].getRelationship());
+                                                            if (users[n].friends[m].getRelationship() == "Outgoing") {
+                                                                users[n].friends[m] = null;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
                                     }
+    
+                                    friends[j] = null;
+                                    System.out.println("Denied");
+                                    break;
                                 }
-
-                                friends[j] = null;
-                                System.out.println("Denied");
-                                break;
                             }
                         }
                     }
+                } else if (input == 2) {
+                    System.out.println("Returning...");
                 }
-            } else if (input == 2) {
-                System.out.println("Returning...");
+            } catch (InputMismatchException e) {
+                sc.next();
+                System.out.println("Your input must be an integer.");
             }
-            return;
+                return;
         }
     }
 }

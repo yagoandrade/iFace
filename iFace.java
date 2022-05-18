@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import Exceptions.UserNotFoundException;
 import Feed.News;
 import User.User;
 
@@ -86,14 +87,21 @@ abstract class iFace {
     }
 
     public static void deleteUser(User[] user, String email, String password) {
-        for (int i = 0; i < 1000; i++) {
-            if (user[i] != null) {
-                if ((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
-                    user[i] = null;
-                    break;
+        try {
+            for (int i = 0; i < 1000; i++) {
+                if (user[i] != null) {
+                    if ((email.equals(user[i].getEmail())) && (password.equals(user[i].getPassword()))) {
+                        user[i] = null;
+                        return;
+                    }
                 }
             }
+            
+            throw new UserNotFoundException("User was not found.");
+        } catch (UserNotFoundException e) {
+            System.out.println(e);
         }
+
     }
 
     public static void listUsers(User[] user) {
