@@ -40,7 +40,7 @@ abstract class iFace {
 
             if (((Feed.get(i).privacy == true) && (isFriends(Feed.get(i).user, current_user)))
                     || (Feed.get(i).privacy == false)) {
-                        messages_found++;
+                messages_found++;
                 System.out.println();
                 System.out.println('"' + Feed.get(i).content + '"');
                 System.out.println("Posted by: " + Feed.get(i).user);
@@ -48,7 +48,7 @@ abstract class iFace {
             }
         }
 
-        if(messages_found < 1) {
+        if (messages_found < 1) {
             System.out.println("No messages were found.");
         }
     }
@@ -96,7 +96,7 @@ abstract class iFace {
                     }
                 }
             }
-            
+
             throw new UserNotFoundException("User was not found.");
         } catch (UserNotFoundException e) {
             System.out.println(e);
