@@ -97,15 +97,17 @@ public class User extends Attribute {
                         while (true) {
                             if (user[i].getName() == null) {
                                 System.out.println("1 - Register a new first name");
-                                System.out.println("You currently don't have a first name associated with your account.");
+                                System.out
+                                        .println("You currently don't have a first name associated with your account.");
                             } else {
                                 System.out.println("\n1 - Update your first name");
                                 System.out.println("Current first name: " + user[i].getName());
-    
+
                             }
                             if (user[i].getSurname() == null) {
                                 System.out.println("2 - Register a new last name");
-                                System.out.println("You currently don't have a last name associated with your account.");
+                                System.out
+                                        .println("You currently don't have a last name associated with your account.");
                             } else {
                                 System.out.println("2 - Update your last name");
                                 System.out.println("Current last name: " + user[i].getSurname());
@@ -117,7 +119,7 @@ public class User extends Attribute {
                                 System.out.println("3 - Update your city");
                                 System.out.println("Current city: " + user[i].getCity());
                             }
-                            if(user[i].getAge() == -1) {
+                            if (user[i].getAge() == -1) {
                                 System.out.println("4 - Register a new age");
                                 System.out.println("You currently don't have an age associated with your account.");
                             } else {
@@ -125,8 +127,9 @@ public class User extends Attribute {
                                 System.out.println("Current age: " + user[i].getAge());
                             }
                             System.out.println("5 - Close attribute settings");
-    
+
                             int input = sc.nextInt();
+                            sc.nextLine();
                             if (input == 1) {
                                 System.out.println("Desired first name: ");
                                 String input_text = sc.next();
@@ -148,8 +151,7 @@ public class User extends Attribute {
                                 } catch (Exception e) {
                                     System.out.println("You must input a number for your age!");
                                 }
-                            }   
-                            else if (input == 5) {
+                            } else if (input == 5) {
                                 System.out.println("Selected: Close attribute settings");
                                 break;
                             }
@@ -199,16 +201,18 @@ public class User extends Attribute {
 
             try {
                 int input = sc.nextInt();
-    
+
                 if (input == 1) {
                     System.out.println("Please enter the id of the user invite you wish to respond to: ");
                     int invite_id = sc.nextInt();
+                    sc.nextLine();
                     for (int j = 0; j < 1000; j++) {
                         if (friends[j] != null) {
                             if (friends[j].getId() == invite_id) {
                                 System.out.println("Press 1 to accept");
                                 System.out.println("Press 2 to deny");
                                 int response = sc.nextInt();
+                                sc.nextLine();
                                 if (response == 1) {
                                     friends[j].setRelationship("Friends");
                                     for (int n = 0; n < 1000; n++) {
@@ -216,7 +220,8 @@ public class User extends Attribute {
                                             if (users[n].getUsername().equals(friends[j].getUsername())) {
                                                 for (int m = 0; m < 1000; m++) {
                                                     if (users[n].friends[m] != null) {
-                                                        if (users[n].friends[m].getUsername().equals(this.getUsername())) {
+                                                        if (users[n].friends[m].getUsername()
+                                                                .equals(this.getUsername())) {
                                                             System.out.println(users[n].friends[m].getRelationship());
                                                             if (users[n].friends[m].getRelationship() == "Outgoing") {
                                                                 users[n].friends[m].setRelationship("Friends");
@@ -235,7 +240,8 @@ public class User extends Attribute {
                                             if (users[n].getUsername().equals(friends[j].getUsername())) {
                                                 for (int m = 0; m < 1000; m++) {
                                                     if (users[n].friends[m] != null) {
-                                                        if (users[n].friends[m].getUsername().equals(this.getUsername())) {
+                                                        if (users[n].friends[m].getUsername()
+                                                                .equals(this.getUsername())) {
                                                             System.out.println(users[n].friends[m].getRelationship());
                                                             if (users[n].friends[m].getRelationship() == "Outgoing") {
                                                                 users[n].friends[m] = null;
@@ -246,7 +252,7 @@ public class User extends Attribute {
                                             }
                                         }
                                     }
-    
+
                                     friends[j] = null;
                                     System.out.println("Denied");
                                     break;
@@ -261,7 +267,7 @@ public class User extends Attribute {
                 sc.next();
                 System.out.println("Your input must be an integer.");
             }
-                return;
+            return;
         }
     }
 }
