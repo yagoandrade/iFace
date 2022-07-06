@@ -9,3 +9,8 @@ Funções implementadas:
 8 - Remoção de conta
 9 - Envio de Mensagens no Feed de Notícias
 10 - Controle de visualização do Feed de Notícias
+
+Design patterns implementadas:
+1 - Singleton
+2 - Builder
+3 - Bridge
