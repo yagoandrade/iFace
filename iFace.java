@@ -7,25 +7,25 @@ import User.User;
 abstract class iFace {
     static ArrayList<News> Feed = new ArrayList<News>();
 
-    public static void addNews(int id, User current_user, String content, boolean privacy) {
+    public static void addNews(int id, User client, String content, boolean privacy) {
         News item = new News();
         item.id = id;
-        item.user = current_user.getUsername();
+        item.user = client.getUsername();
         item.content = content;
         item.privacy = privacy;
         Feed.add(item);
     }
 
-    public static boolean isFriends(String user, User current_user) {
+    public static boolean isFriends(String user, User client) {
         // Show friends of current user
-        if (current_user.getUsername().equals(user)) {
+        if (client.getUsername().equals(user)) {
             return true;
         }
 
-        for (int i = 0; i < current_user.friends.length; i++) {
-            if (current_user.friends[i] != null) {
-                System.out.println(current_user.friends[i].getUsername());
-                if (current_user.friends[i].getUsername().equals(user)) {
+        for (int i = 0; i < client.friends.length; i++) {
+            if (client.friends[i] != null) {
+                System.out.println(client.friends[i].getUsername());
+                if (client.friends[i].getUsername().equals(user)) {
                     return true;
                 }
             }
@@ -33,12 +33,12 @@ abstract class iFace {
         return false;
     }
 
-    public static void listNews(User current_user) {
+    public static void listNews(User client) {
         int messages_found = 0;
 
         for (int i = 0; i < Feed.size(); i++) {
 
-            if (((Feed.get(i).privacy == true) && (isFriends(Feed.get(i).user, current_user)))
+            if (((Feed.get(i).privacy == true) && (isFriends(Feed.get(i).user, client)))
                     || (Feed.get(i).privacy == false)) {
                 messages_found++;
                 System.out.println();
@@ -68,15 +68,10 @@ abstract class iFace {
     public static int createUser(User[] user, String email, String password, String username) {
         for (int i = 0; i < 1000; i++) {
             if (user[i] == null) {
-                user[i] = new User();
-                user[i].setId(i);
-                user[i].setEmail(email);
-                user[i].setPassword(password);
-                user[i].setUsername(username);
+                user[i] = new User.UserBuilder(email, password).id(i).username(username).build();
                 System.out.println("New user registered with the informations: ");
                 System.out.println("ID: " + user[i].getId());
                 System.out.println("EMAIL: " + user[i].getEmail());
-                System.out.println("PASSWORD: " + user[i].getPassword());
                 System.out.println("USERNAME: " + user[i].getUsername());
                 return 0;
             }
@@ -102,24 +97,5 @@ abstract class iFace {
             System.out.println(e);
         }
 
-    }
-
-    public static void listUsers(User[] user) {
-        int null_users = 0;
-
-        for (int i = 0; i < 1000; i++) {
-            if (user[i] != null) {
-                System.out.println("\nUser ID: " + i);
-                System.out.println("User EMAIL: " + user[i].getEmail());
-                System.out.println("User PASSWORD: " + user[i].getPassword());
-                System.out.println("User USERNAME: " + user[i].getUsername());
-            } else {
-                null_users++;
-            }
-        }
-
-        if (null_users == 1000) {
-            System.out.println("There are no registered users.");
-        }
     }
 }

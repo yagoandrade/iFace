@@ -6,18 +6,30 @@ import User.Attributes.Attribute;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class User extends Attribute {
-    int id;
-    String email;
-    String password;
-    String username;
-    boolean private_feed;
+// Builder pattern
+public class User extends Attribute implements UserObj {
+    private final int id;
+    private final String email;
+    private final String password;
+    private final String username;
+    private boolean private_feed;
     public Friend[] friends = new Friend[1000];
 
-    public void setId(int id) {
-        this.id = id;
+    private User(UserBuilder builder) {
+        this.id = builder.id;
+        this.email = builder.email;
+        this.password = builder.password;
+        this.username = builder.username;
+        this.private_feed = builder.private_feed;
     }
 
+    /*
+     * public void setId(int id) {
+     * this.id = id;
+     * }
+     */
+
+    @Override
     public int getId() {
         return id;
     }
@@ -26,24 +38,79 @@ public class User extends Attribute {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    /*
+     * public void setEmail(String email) {
+     * this.email = email;
+     * }
+     */
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    /*
+     * public void setPassword(String password) {
+     * this.password = password;
+     * }
+     */
 
+    @Override
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    /*
+     * public void setUsername(String username) {
+     * this.username = username;
+     * }
+     */
+
+    public static class UserBuilder {
+        private int id;
+        private final String email;
+        private final String password;
+        private String username;
+        private boolean private_feed;
+
+        public UserBuilder(String email, String password) {
+            this.email = email;
+            this.password = password;
+        }
+
+        public UserBuilder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder private_feed(boolean private_feed) {
+            this.private_feed = private_feed;
+            return this;
+        }
+
+        public UserBuilder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        // Return the finally consrcuted User object
+        public User build() {
+            User user = new User(this);
+            validateUserObject(user);
+            return user;
+        }
+
+        private void validateUserObject(User user) {
+            try {
+                if (user.email.isEmpty())
+                    throw new Error("Email was not set correctly");
+                if (user.password.isEmpty())
+                    throw new Error("Password was not set correctly");
+                // Do some basic validations to check
+                // if user object does not break any assumption of system
+            } catch (Exception error) {
+                System.out.println("Error: " + error);
+            }
+        }
     }
 
     public boolean getPrivateFeed() {

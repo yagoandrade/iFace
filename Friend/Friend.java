@@ -1,8 +1,8 @@
 package Friend;
 
-import User.User;
+import User.UserObj;
 
-public class Friend extends User {
+public class Friend implements UserObj {
     public int user_id;
     public String username;
     public String relationship;
@@ -12,7 +12,6 @@ public class Friend extends User {
         return user_id;
     }
 
-    @Override
     public void setId(int user_id) {
         this.user_id = user_id;
     }
@@ -22,7 +21,6 @@ public class Friend extends User {
         return username;
     }
 
-    @Override
     public void setUsername(String username) {
         this.username = username;
     }

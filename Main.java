@@ -9,10 +9,12 @@ import Exceptions.MaximumSizeException;
 import User.User;
 import Util.EmailValidator;
 
+import User.ListUsers;
+
 public class Main extends iFace {
     public static void main(String[] args) {
         User[] users = new User[1000];
-        User current_user = null;
+        User client = null;
         ArrayList<Community> communities = new ArrayList<Community>();
 
         Scanner sc = new Scanner(System.in); // Create a Scanner object
@@ -22,7 +24,7 @@ public class Main extends iFace {
         System.out.println("Welcome to iFace. Choose an option from the list below: ");
 
         while (active) {
-            if (current_user != null) {
+            if (client != null) {
                 System.out.println("\n0 - Logout");
             } else {
                 System.out.println("\n0 - Login");
@@ -49,22 +51,21 @@ public class Main extends iFace {
 
                 switch (input) {
                     case 0:
-                        if (current_user == null) {
+                        if (client == null) {
                             System.out.println("Selected: Login");
-                            current_user = new User();
                             System.out.println("Enter your username: ");
                             String username = sc.next();
                             System.out.println("Enter your password: ");
                             String password = sc.next();
-                            current_user = handleLogin(username, password, users);
+                            client = handleLogin(username, password, users);
 
-                            if (current_user != null) {
+                            if (client != null) {
                                 System.out.println("Login successful!");
                             } else {
                                 System.out.println("Login failed!");
                             }
                         } else {
-                            current_user = null;
+                            client = null;
                             System.out.println("You have logged out succesfully.");
                         }
                         break;
@@ -144,10 +145,10 @@ public class Main extends iFace {
                                 throw new EmptyInputException("You must type something to the password.");
                             }
 
-                            if (current_user != null) {
-                                if (email.equals(current_user.getEmail())
-                                        && password.equals(current_user.getPassword())) {
-                                    current_user = null;
+                            if (client != null) {
+                                if (email.equals(client.getEmail())
+                                        && password.equals(client.getPassword())) {
+                                    client = null;
                                 }
                             }
 
@@ -161,7 +162,7 @@ public class Main extends iFace {
                         break;
                     case 3:
                         System.out.println("Selected: List users");
-                        listUsers(users);
+                        ListUsers.listUsers(users);
                         break;
                     case 4:
                         System.out.println("Selected: Edit profile attributes");
@@ -190,7 +191,7 @@ public class Main extends iFace {
                                 throw new EmptyInputException("You must type something to the password.");
                             }
 
-                            current_user.editAttributes(users, email, password, sc);
+                            client.editAttributes(users, email, password, sc);
                         } catch (EmptyInputException e) {
                             System.out.println(e);
                         } catch (MaximumSizeException e) {
@@ -199,38 +200,37 @@ public class Main extends iFace {
                         break;
                     case 5:
                         System.out.println("Selected: Add friend");
-                        if (current_user == null) {
+                        if (client == null) {
                             System.out.println("You must login before adding friends!");
                         } else {
                             System.out.println("Add friend: ");
                             String invite_friend = sc.next();
-                            current_user.addFriend(users, current_user, invite_friend);
+                            client.addFriend(users, client, invite_friend);
                         }
                         break;
                     case 6:
                         System.out.println("Selected: See invites");
-                        if (current_user == null) {
+                        if (client == null) {
                             System.out.println("You must login before seeing your invites!");
                         } else {
-                            current_user.seeInvites(sc, users);
+                            client.seeInvites(sc, users);
                         }
                     case 7:
                         System.out.println("Selected: See my information");
-                        if (current_user == null) {
+                        if (client == null) {
                             System.out.println("You must login before seeing your information!");
                         } else {
-                            System.out.println("\nUser ID: " + current_user.getId());
-                            System.out.println("User EMAIL: " + current_user.getEmail());
-                            System.out.println("User PASSWORD: " + current_user.getPassword());
-                            System.out.println("User USERNAME: " + current_user.getUsername());
+                            System.out.println("\nUser ID: " + client.getId());
+                            System.out.println("User EMAIL: " + client.getEmail());
+                            System.out.println("User USERNAME: " + client.getUsername());
                             System.out.println("Friends: ");
 
                             int null_users = 0;
 
                             for (int i = 0; i < 1000; i++) {
-                                if (current_user.friends[i] != null) {
-                                    if (current_user.friends[i].relationship.equals("Friends")) {
-                                        System.out.println(current_user.friends[i].username);
+                                if (client.friends[i] != null) {
+                                    if (client.friends[i].relationship.equals("Friends")) {
+                                        System.out.println(client.friends[i].username);
                                     }
                                 } else {
                                     null_users++;
@@ -254,7 +254,7 @@ public class Main extends iFace {
                                         System.out.println("Type the message you wish to send below: ");
                                         String message = sc.next();
                                         try {
-                                            users[i].addMessage(current_user.getUsername() + ": " + message);
+                                            users[i].addMessage(client.getUsername() + ": " + message);
                                         } catch (Exception e) {
                                             System.out
                                                     .println("Error: your message was not able to be sent. Code: " + e);
@@ -272,11 +272,11 @@ public class Main extends iFace {
                         break;
                     case 9:
                         System.out.println("Selected: See your messages");
-                        if (current_user == null) {
+                        if (client == null) {
                             System.out.println("You must login before seeing your messages!");
                         } else {
-                            for (int i = 0; i < current_user.messages.size(); i++) {
-                                System.out.println(current_user.messages.get(i));
+                            for (int i = 0; i < client.messages.size(); i++) {
+                                System.out.println(client.messages.get(i));
                             }
                         }
                         break;
@@ -347,11 +347,11 @@ public class Main extends iFace {
                         break;
                     case 13:
                         System.out.println("Selected: Open the news feed");
-                        listNews(current_user);
+                        listNews(client);
                         break;
                     case 14:
                         System.out.println("Selected: Add message to the feed");
-                        if (current_user == null) {
+                        if (client == null) {
                             System.out.println("You must log in before accessing this feature");
                         } else {
                             try {
@@ -370,10 +370,10 @@ public class Main extends iFace {
                                 boolean privacy;
                                 if (option == 1) {
                                     privacy = true;
-                                    addNews(current_user.getId(), current_user, message, privacy);
+                                    addNews(client.getId(), client, message, privacy);
                                 } else if (option == 0) {
                                     privacy = false;
-                                    addNews(current_user.getId(), current_user, message, privacy);
+                                    addNews(client.getId(), client, message, privacy);
                                 } else {
                                     System.out.println("Please choose one of the options listed above.");
                                 }
